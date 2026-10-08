@@ -1,8 +1,9 @@
 {
   "timestamp": "2026-10-08T08:33:06Z",
-  "status": "Simulated Fallback (No token configured)",
-  "backend_name": "ibm_brisbane (Emulated Calibration Profile)",
-  "job_id": "job-sim-calibrated-2026-001",
+  "status": "Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware.",
+  "backend_name": "ibm_brisbane noise model (simulated via Aer)",
+  "job_id": null,
+  "real_hardware_executed": false,
   "num_qubits": 4,
   "num_shots": 1024,
   "optimization_level": 3,
@@ -227,5 +228,5 @@
       "hardware_prob": 0.0713
     }
   ],
-  "scientific_honesty_note": "Comparing the ideal quantum statevector against noisy simulation and physical hardware reveals fidelity attenuation caused by 2-qubit CNOT gate infidelities and T1/T2 thermal relaxation. Optimization Level 3 transpilation and readout mitigation substantially suppress error, preserving the dominant bitstring rankings while flattening contrast."
+  "scientific_honesty_note": "Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware. No job was run on a real IBM backend. Comparing the ideal quantum statevector against generic noisy simulation and the ibm_brisbane calibration noise model reveals fidelity attenuation caused by 2-qubit CNOT gate infidelities and T1/T2 thermal relaxation. Simulated readout mitigation suppresses error and preserves dominant bitstring rankings while flattening contrast."
 }

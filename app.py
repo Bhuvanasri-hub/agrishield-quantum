@@ -189,6 +189,24 @@ st.markdown("""
         font-size: 0.78rem;
         margin-top: 4px;
     }
+    
+    .kpi-value-multi {
+        font-family: 'Poppins', sans-serif;
+        color: #EAF3E6;
+        font-size: 0.94rem;
+        font-weight: 700;
+        margin: 6px 0 4px 0;
+        line-height: 1.45;
+    }
+    
+    .kpi-caption {
+        font-size: 0.74rem;
+        color: #8FA89A;
+        font-style: italic;
+        margin-top: 6px;
+        border-top: 1px solid rgba(143, 168, 154, 0.15);
+        padding-top: 4px;
+    }
 
     /* Premium Pill Tabs */
     .stTabs [data-baseweb="tab-list"] {
@@ -427,16 +445,16 @@ with st.sidebar:
     st.markdown("#### 🛰️ Data Layer")
     data_mode = st.radio(
         "Active Agricultural Dataset:",
-        ["Synthetic (Dynamic Contagion)", "Real Satellite (NASA POWER + Sentinel-2)"],
+        ["Synthetic (Dynamic Contagion)", "Real data (not available, using synthetic fallback)"],
         index=0,
         help="Switch between synthetic multi-spectral diffusion and real satellite/weather layers."
     )
     
-    is_real = ("Real" in data_mode)
+    is_real = ("Real data" in data_mode)
     if is_real:
         st.markdown("""
-        <div style="background-color: rgba(90, 184, 255, 0.1); border: 1px solid rgba(90, 184, 255, 0.3); border-radius: 8px; padding: 10px; font-size: 0.82rem; color: #5AB8FF;">
-            🛰️ <strong>Active:</strong> Real NASA POWER weather + Copernicus Sentinel-2 MSI. Proxy labels via &gt;15% seasonal NDVI drop.
+        <div style="background-color: rgba(245, 184, 61, 0.1); border: 1px solid rgba(245, 184, 61, 0.3); border-radius: 8px; padding: 10px; font-size: 0.82rem; color: #F5B83D;">
+            ⚠️ <strong>Dataset Status:</strong> Real Copernicus Sentinel-2 credentials not configured. Using synthetic fallback values with real NASA POWER Krishna District coordinates.
         </div>
         """, unsafe_allow_html=True)
     else:
@@ -469,7 +487,8 @@ with st.sidebar:
     <div style="font-size: 0.82rem; color: #8FA89A; line-height: 1.6;">
         • <strong>Framework:</strong> Qiskit 2.5.2 & Aer 0.17<br>
         • <strong>Optimization:</strong> QAOA + COBYLA<br>
-        • <strong>Hardware Target:</strong> IBM Eagle / Brisbane<br>
+        • <strong>Noise Model:</strong> ibm_brisbane calibration profile<br>
+        • <strong>Execution Mode:</strong> Local simulation (not run on real hardware)<br>
         • <strong>Mitigation:</strong> Opt-Level 3 + Readout MEO
     </div>
     """, unsafe_allow_html=True)
@@ -497,7 +516,10 @@ st.markdown("""
 ew_mean_lead = data_store["early_warning"].get("lead_time_distribution", {}).get("mean_lead_days", 11.5)
 ew_5d_f1 = data_store["early_warning"].get("horizons", {}).get("5_days", {}).get("f1", 0.802)
 qaoa_ratio = data_store["qaoa"].get("experiment_1_top10", {}).get("approximation_ratio", 0.994)
-bench_qsvc_acc = data_store["benchmark"].get("ablation", {}).get("2_qubits", {}).get("accuracy_mean", 0.875)
+bench_models = data_store["benchmark"].get("models", {})
+bench_svc_acc = bench_models.get("SVC (RBF)", {}).get("accuracy_mean", 0.967)
+bench_qsvc4_acc = bench_models.get("QSVC (4 qubits)", {}).get("accuracy_mean", 0.525)
+bench_qsvc2_acc = data_store["benchmark"].get("ablation", {}).get("2_qubits", {}).get("accuracy_mean", 0.875)
 
 # 4 KPI Cards
 st.markdown(f"""
@@ -509,6 +531,7 @@ st.markdown(f"""
         </div>
         <p class="kpi-value">{ew_mean_lead:.1f} Days</p>
         <div class="kpi-subtext">Pre-symptomatic detection</div>
+        <div class="kpi-caption">Measured on synthetic data</div>
     </div>
     <div class="kpi-card">
         <div class="kpi-header">
@@ -517,14 +540,19 @@ st.markdown(f"""
         </div>
         <p class="kpi-value">{ew_5d_f1:.2f}</p>
         <div class="kpi-subtext">5-day advance horizon</div>
+        <div class="kpi-caption">Measured on synthetic data</div>
     </div>
     <div class="kpi-card">
         <div class="kpi-header">
-            <span class="kpi-label">QSVC Accuracy</span>
-            <span class="kpi-icon">⚛️</span>
+            <span class="kpi-label">Model Accuracy</span>
+            <span class="kpi-icon">⚖️</span>
         </div>
-        <p class="kpi-value">{bench_qsvc_acc*100:.1f}%</p>
-        <div class="kpi-subtext">2-qubit dense kernel</div>
+        <div class="kpi-value-multi">
+            <span style="color: #3DDC84;">Classical SVC:</span> {bench_svc_acc*100:.1f}%<br>
+            <span style="color: #5AB8FF;">QSVC (4 qubits):</span> {bench_qsvc4_acc*100:.1f}%<br>
+            <span style="color: #F5B83D;">QSVC (2 qubits):</span> {bench_qsvc2_acc*100:.1f}%
+        </div>
+        <div class="kpi-caption">5-fold CV on synthetic data</div>
     </div>
     <div class="kpi-card">
         <div class="kpi-header">
@@ -532,11 +560,12 @@ st.markdown(f"""
             <span class="kpi-icon">🛡️</span>
         </div>
         <p class="kpi-value">{qaoa_ratio*100:.1f}%</p>
-        <div class="kpi-subtext">Optimal scout dispersion</div>
+        <div class="kpi-subtext">Evaluated for N=10, K=3</div>
+        <div class="kpi-caption">Measured on synthetic data</div>
     </div>
 </div>
-<div style="font-size: 0.78rem; color: #8FA89A; margin-top: 4px; margin-bottom: 20px;">
-    Measured on synthetic data for prototype validation
+<div style="font-size: 0.78rem; color: #8FA89A; margin-top: 6px; margin-bottom: 20px;">
+    All metrics measured on synthetic data for prototype validation. Classical models outperform unoptimized quantum kernels on small tabular datasets.
 </div>
 """, unsafe_allow_html=True)
 
@@ -551,7 +580,7 @@ tab1, tab2, tab3, tab4, tab5, tab6, tab7, tab8, tab9 = st.tabs([
     "Spatial Risk Map",
     "Early Warning",
     "QAOA Scouting",
-    "IBM Quantum Hardware",
+    "Hardware Noise Simulation",
     "Alerts & Persona",
     "Limitations & Roadmap"
 ])
@@ -634,6 +663,18 @@ with tab1:
         Representing team allocation as an Ising Hamiltonian mapped to quantum phase and mixer unitaries provides a natural testbed for quantum approximate optimization.<br>
         3. <strong>Empirical Grounding:</strong> We explicitly document where classical baselines are faster or equal, and transparently demonstrate how NISQ noise impacts hardware execution.
         </span>
+    </div>
+    
+    <div class="panel-card" style="margin-top: 16px;">
+        <h4 style="color: #3DDC84; margin-top: 0;">📊 Verified Benchmark Metrics (5-Fold Cross-Validation on Synthetic Data)</h4>
+        <div style="font-size: 0.88rem; color: #EAF3E6; line-height: 1.6;">
+            • <strong>Classical SVC (RBF):</strong> 96.7% ± 3.1% Accuracy | F1: 0.968 ± 0.029 | Train Time: 0.035s<br>
+            • <strong>Classical Random Forest:</strong> 95.8% ± 2.6% Accuracy | F1: 0.959 ± 0.024 | Train Time: 0.180s<br>
+            • <strong>QSVC (4 Qubits, Main Architecture):</strong> 52.5% ± 3.3% Accuracy | F1: 0.552 ± 0.075 | Train Time: 20.28s<br>
+            • <strong>QSVC (2 Qubits, Ablation):</strong> 87.5% ± 3.4% Accuracy | F1: 0.871 ± 0.031 | Train Time: 14.90s<br>
+            • <strong>VQC (4 Qubits):</strong> 48.6% ± 10.9% Accuracy | F1: 0.492 ± 0.113 | Train Time: 10.82s<br>
+            <span style="color: #F5B83D; font-size: 0.82rem; font-style: italic;">Scientific Note: Classical models excel on small tabular vectors. QSVC 4-qubit experiences kernel concentration without specialized ansatz engineering. Overview and Quantum vs Classical tabs strictly agree.</span>
+        </div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -988,7 +1029,7 @@ with tab5:
                 margin=dict(l=40, r=20, t=50, b=40)
             )
             st.plotly_chart(fig_h, use_container_width=True)
-            st.markdown('<div class="caption-text">Figure 5A: Recall, F1, and False Alarm Rate as lead horizon increases from 5 to 15 days. Notice the expected trade-off: predicting 15 days in advance yields higher entropy and lower F1 than 5 days.</div>', unsafe_allow_html=True)
+            st.markdown('<div class="caption-text">Figure 5A: Recall, F1, and False Alarm Rate as lead horizon increases from 5 to 15 days. Measured on synthetic data. Notice the trade-off: predicting 15 days in advance yields higher entropy and lower F1 than 5 days.</div>', unsafe_allow_html=True)
             
         with col_ew2:
             dist = ew.get("lead_time_distribution", {})
@@ -1018,7 +1059,7 @@ with tab5:
                 margin=dict(l=40, r=20, t=50, b=40)
             )
             st.plotly_chart(fig_dist, use_container_width=True)
-            st.markdown('<div class="caption-text">Figure 5B: Histogram of advance warning lead times across all infected plots prior to visible lesion manifestation.</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="caption-text">Figure 5B: Histogram of advance warning lead times across all infected plots prior to visible lesion manifestation (Mean: {dist.get("mean_lead_days", 11.5):.1f} days). Measured on synthetic data.</div>', unsafe_allow_html=True)
             
         # Focal Cell Timeline
         st.markdown("#### 🔬 Pre-Symptomatic Detection Window: Epicenter Cell (cell_02_03)")
@@ -1047,7 +1088,7 @@ with tab5:
             hovermode="x unified"
         )
         st.plotly_chart(fig_time, use_container_width=True)
-        st.markdown('<div class="caption-text">Figure 5C: Multi-spectral progression of an infected plot. NDRE drops sharply at Week 5 as chlorophyll degrades at cellular level, triggering the Quantum Risk Alarm (Red dashed line) 14 full days before visible symptoms appear at Week 7 (White dotted line).</div>', unsafe_allow_html=True)
+        st.markdown('<div class="caption-text">Figure 5C: Multi-spectral progression of an infected plot. NDRE drops sharply at Week 5 as chlorophyll degrades at cellular level, triggering the Quantum Risk Alarm 14 full days before visible symptoms appear at Week 7. Measured on synthetic data.</div>', unsafe_allow_html=True)
         
         st.markdown(f"""
         <div class="callout-box">
@@ -1098,6 +1139,8 @@ with tab6:
             
             st.markdown(f"""
             <div style="font-size: 0.85rem; color: #8FA89A; margin-top: 10px; line-height: 1.6;">
+                • <strong>Evaluated Parameters:</strong> Candidate plots N=10, Field teams K=3.<br>
+                • <strong>Dataset Source:</strong> Measured on synthetic data.<br>
                 • <strong>Optimality Gap:</strong> <code style="color: #3DDC84;">{exp1.get('optimality_gap', 0.0):.4f}</code><br>
                 • <strong>Approximation Ratio:</strong> <code style="color: #3DDC84;">{exp1.get('approximation_ratio', 0.994)*100:.2f}%</code><br>
                 • <strong>QUBO Formulation:</strong> 10 binary variables, cardinality constraint sum(x_i)=3, adjacency penalty lambda=0.8.
@@ -1130,7 +1173,7 @@ with tab6:
                 margin=dict(l=20, r=20, t=40, b=20)
             )
             st.plotly_chart(fig_scout, use_container_width=True)
-            st.markdown('<div class="caption-text">Figure 6A: Field distribution of dispatched scouting teams. Amber indicates candidate plots; Coral indicates plots selected by QAOA, confirming spatial dispersion without team clustering.</div>', unsafe_allow_html=True)
+            st.markdown('<div class="caption-text">Figure 6A: Field distribution of dispatched scouting teams. Evaluated for N=10 candidate plots with K=3 field teams. Measured on synthetic data. Amber indicates candidate plots; Coral indicates plots selected by QAOA, confirming spatial dispersion without team clustering.</div>', unsafe_allow_html=True)
 
         st.markdown("---")
         st.markdown("#### Experiment 2: Scale-Up to Top 20 Candidate Plots, K=4 Field Teams")
@@ -1162,45 +1205,37 @@ with tab6:
 
 
 # =============================================================================
-# TAB 7: IBM QUANTUM HARDWARE
+# TAB 7: HARDWARE NOISE SIMULATION
 # =============================================================================
 with tab7:
-    st.markdown("### 🔬 IBM Quantum Hardware Execution vs Simulators")
     st.markdown("""
-    To validate physical deployability, we executed quantum kernel evaluations and QAOA circuits across:
+    <div class="synthetic-banner" style="background-color: rgba(245, 184, 61, 0.12); border: 1px solid rgba(245, 184, 61, 0.35); color: #F5B83D; font-size: 0.95rem; font-weight: 700; padding: 12px 18px; margin-bottom: 20px;">
+        ⚠️ Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware.
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("### 🔬 Simulated Hardware Noise Laboratory (ibm_brisbane Model)")
+    st.markdown("""
+    To evaluate how physical NISQ device noise impacts kernel evaluation and QAOA bitstring ranking, we evaluated quantum circuits across three simulated regimes (all executed locally using Qiskit Aer simulators; no jobs were run on real IBM hardware):
     1. **Ideal Statevector Simulator** (zero-noise mathematical reference)
-    2. **Realistic Aer Noise Model** (depolarizing errors + T1/T2 thermal relaxation)
-    3. **IBM Quantum Hardware Profile** (transpiled at Optimization Level 3 with dynamical decoupling)
+    2. **Realistic Aer Noise Model** (depolarizing errors + generic T1/T2 thermal relaxation)
+    3. **Simulated ibm_brisbane Noise Model** (Qiskit Aer simulator parameterized with ibm_brisbane Eagle r3 calibration metrics; simulated locally, not run on real hardware)
     """)
     
     ibm = data_store["ibm"]
     if ibm and "kernel_matrices" in ibm:
-        # State explicitly whether hardware was real backend or simulated
-        is_sim_fallback = "Simulated" in ibm.get("status", "")
-        if is_sim_fallback:
-            st.markdown(f"""
-            <div class="honesty-callout">
-                <strong style="color: #F5B83D;">Backend Execution Status:</strong><br>
-                <span style="color: #EAF3E6; font-size: 0.88rem;">
-                <strong>Status:</strong> {ibm.get('status')}<br>
-                <strong>Backend Profile:</strong> {ibm.get('backend_name')}<br>
-                <strong>Job ID:</strong> <code>{ibm.get('job_id')}</code><br>
-                <em>Notice: Executed with pre-calibrated IBM Quantum hardware calibration data (T1=180μs, T2=130μs, 1-qubit error 0.12%, CNOT error 1.2%). For live QPU dispatch, configure IBM_QUANTUM_TOKEN in .env.</em>
-                </span>
-            </div>
-            """, unsafe_allow_html=True)
-        else:
-            st.markdown(f"""
-            <div class="callout-box">
-                <strong style="color: #3DDC84;">Live Real Backend Execution:</strong><br>
-                <span style="color: #EAF3E6; font-size: 0.88rem;">
-                <strong>Backend Name:</strong> {ibm.get('backend_name')}<br>
-                <strong>Job ID:</strong> <code>{ibm.get('job_id')}</code><br>
-                <strong>Shots:</strong> {ibm.get('num_shots')} | <strong>Optimization Level:</strong> {ibm.get('optimization_level')}<br>
-                <strong>Error Mitigation:</strong> {ibm.get('error_mitigation')}
-                </span>
-            </div>
-            """, unsafe_allow_html=True)
+        st.markdown("""
+        <div class="honesty-callout">
+            <strong style="color: #F5B83D;">Execution Status & Hardware Disclosure:</strong><br>
+            <span style="color: #EAF3E6; font-size: 0.88rem; line-height: 1.6;">
+            <strong>Status:</strong> Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware.<br>
+            <strong>Physical Hardware Dispatch:</strong> ❌ No jobs were submitted to a physical IBM Quantum backend (no real job IDs).<br>
+            <strong>Noise Model Source:</strong> Derived from ibm_brisbane calibration parameters (T1=180μs, T2=130μs, CNOT error 1.2%, readout flip 2.5%).<br>
+            <strong>Simulated Parameters:</strong> 4 Qubits | 1024 Shots | Transpilation Optimization Level 3.<br>
+            <em>Scientific Disclosure: For live physical QPU execution, active IBM Quantum cloud credentials are required. In this prototype, physical behavior is emulated strictly via Aer noise models.</em>
+            </span>
+        </div>
+        """, unsafe_allow_html=True)
         
         col_ib1, col_ib2 = st.columns(2)
         with col_ib1:
@@ -1219,7 +1254,7 @@ with tab7:
                 colorbar=dict(title=dict(text="|Diff|", font=dict(color="#8FA89A")), tickfont=dict(color="#8FA89A"))
             ))
             fig_kdiff.update_layout(
-                title=dict(text="<b>Absolute Fidelity Deviation: |Ideal - IBM Hardware|</b>", font=dict(family="Poppins", color="#EAF3E6")),
+                title=dict(text="<b>Fidelity Deviation: |Ideal - Simulated ibm_brisbane Noise|</b>", font=dict(family="Poppins", color="#EAF3E6")),
                 xaxis=dict(tickfont=dict(color="#8FA89A")),
                 yaxis=dict(tickfont=dict(color="#8FA89A")),
                 paper_bgcolor="rgba(0,0,0,0)",
@@ -1228,7 +1263,7 @@ with tab7:
                 margin=dict(l=20, r=20, t=50, b=20)
             )
             st.plotly_chart(fig_kdiff, use_container_width=True)
-            st.markdown(f'<div class="caption-text">Figure 7A: Difference matrix between ideal statevector kernel overlaps and physical IBM hardware execution. Mean Absolute Error: {ibm.get("differences", {}).get("mae_ideal_vs_hardware", 0.0256):.4f}.</div>', unsafe_allow_html=True)
+            st.markdown(f'<div class="caption-text">Figure 7A: Difference matrix between ideal statevector kernel overlaps and simulated ibm_brisbane noise model. Mean Absolute Error: {ibm.get("differences", {}).get("mae_ideal_vs_hardware", 0.0256):.4f}. Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware.</div>', unsafe_allow_html=True)
             
         with col_ib2:
             st.markdown("#### 5-Cell QAOA State Probability Distribution")
@@ -1241,10 +1276,10 @@ with tab7:
                 
                 fig_qdist = go.Figure()
                 fig_qdist.add_trace(go.Bar(name="Ideal Aer", x=b_labels, y=p_ideal, marker_color="#3DDC84"))
-                fig_qdist.add_trace(go.Bar(name="Realistic Noisy Aer", x=b_labels, y=p_noisy, marker_color="#F5B83D"))
-                fig_qdist.add_trace(go.Bar(name="IBM Hardware", x=b_labels, y=p_hw, marker_color="#5AB8FF"))
+                fig_qdist.add_trace(go.Bar(name="Generic Noisy Aer", x=b_labels, y=p_noisy, marker_color="#F5B83D"))
+                fig_qdist.add_trace(go.Bar(name="Simulated ibm_brisbane Noise", x=b_labels, y=p_hw, marker_color="#5AB8FF"))
                 fig_qdist.update_layout(
-                    title=dict(text="<b>Top Output Bitstring Probabilities</b>", font=dict(family="Poppins", color="#EAF3E6")),
+                    title=dict(text="<b>Top Output Bitstring Probabilities (Simulated Noise)</b>", font=dict(family="Poppins", color="#EAF3E6")),
                     xaxis_title="Measured Bitstring",
                     yaxis_title="Probability",
                     barmode="group",
@@ -1257,13 +1292,13 @@ with tab7:
                     margin=dict(l=40, r=20, t=50, b=40)
                 )
                 st.plotly_chart(fig_qdist, use_container_width=True)
-                st.markdown('<div class="caption-text">Figure 7B: Probability comparison across the top 8 QAOA bitstrings. Hardware readout noise attenuates contrast slightly, but dominant ranking is preserved.</div>', unsafe_allow_html=True)
+                st.markdown('<div class="caption-text">Figure 7B: Probability comparison across the top 8 QAOA bitstrings. Simulated noise attenuates contrast slightly, but dominant ranking is preserved. Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware.</div>', unsafe_allow_html=True)
 
         st.markdown(f"""
         <div class="callout-box">
-            <strong style="color: #3DDC84;">Scientific Hardware Note:</strong><br>
+            <strong style="color: #F5B83D;">Scientific Honesty Disclosure:</strong><br>
             <span style="color: #EAF3E6; font-size: 0.88rem;">
-            {ibm.get('scientific_honesty_note', '')}
+            {ibm.get('scientific_honesty_note', 'Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware.')}
             </span>
         </div>
         """, unsafe_allow_html=True)

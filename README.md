@@ -19,7 +19,7 @@ Scientific integrity is the core principle of this project:
 3. **Qubit Ablation Findings:** In our ablation study (2 vs 4 vs 6 qubits), QSVC achieves **87.5% accuracy (0.871 F1)** on 2 qubits with dense non-linear mapping. At 4 and 6 qubits without custom ansatz tuning, kernel concentration in the expanding $2^n$-dimensional Hilbert space reduces generalizability.
 4. **Data & Proxy Labels Clearly Labeled:**
    - **Synthetic Layer:** Clearly marked as *"Synthetic data for prototype validation"* (models spatio-temporal contagion and pre-symptomatic red-edge drop).
-   - **Real Layer:** Uses real NASA POWER daily agroclimatology for Krishna District ($16.216^\circ\text{N}, 80.985^\circ\text{E}$) and Sentinel-2 L2A multispectral bands. Labels are explicitly disclosed as *"Proxy labels derived from >15% NDVI seasonal baseline drop; not microbiological laboratory assay labels."*
+   - **Real Layer:** Uses real NASA POWER daily agroclimatology for Krishna District ($16.216^\circ\text{N}, 80.985^\circ\text{E}$). Sentinel-2 multispectral bands use synthetic fallback formulas because Copernicus CDSE credentials are not configured in this prototype. Labels are explicitly disclosed as *"Proxy labels derived from >15% NDVI seasonal baseline drop; not microbiological laboratory assay labels."*
 
 ---
 
@@ -86,10 +86,10 @@ Solved using **QAOA** ($p=1$, COBYLA) via `MinimumEigenOptimizer`. Dispatches bi
   - Greedy evaluates in <0.001s (Obj = 3.1220).
   - Demonstrates why physical QPUs are mandatory: classical statevector simulation of 20-qubit QAOA requires 16 Terabytes of RAM ($2^{20} \times 2^{20}$ operator).
 
-### IBM Quantum Hardware Execution
-- Executed on IBM Quantum QPU profile (`ibm_brisbane` / Eagle architecture).
-- Transpiled with `optimization_level=3` and readout error mitigation.
-- Frobenius norm kernel matrix deviation between Ideal and Hardware: **0.2185** (Mean Absolute Error: **0.0256**).
+### Hardware Noise Simulation (ibm_brisbane Calibration Model)
+- Simulated locally using Qiskit Aer with noise model parameters derived from `ibm_brisbane` (Eagle architecture) calibration data; not run on real physical quantum hardware.
+- Transpiled with `optimization_level=3` and simulated readout error mitigation.
+- Frobenius norm kernel matrix deviation between Ideal and simulated noise model: **0.2185** (Mean Absolute Error: **0.0256**).
 
 ---
 
