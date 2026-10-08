@@ -39,19 +39,43 @@ st.set_page_config(
     page_title="AgriShield Quantum | Predict. Protect. Prevent.",
     page_icon="🌾",
     layout="wide",
-    initial_sidebar_state="expanded"
+    initial_sidebar_state="collapsed"
 )
 
-# Custom Styling
+# Custom Styling (Dark Forest Design System + Full Mobile Responsiveness)
 st.markdown("""
 <style>
     /* Google Fonts: Poppins (headings) + Inter (body) */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap');
     
-    html, body, [class*="css"] {
+    html, body {
         font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         color: #EAF3E6;
         background-color: #0B1A12;
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+    }
+    
+    .block-container {
+        overflow-x: hidden !important;
+        max-width: 100% !important;
+        padding-top: 24px !important;
+        padding-bottom: 32px !important;
+    }
+    
+    img, .stImage img, [data-testid="stImage"] img {
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain !important;
+    }
+    
+    /* Horizontally scrollable dataframes and tables */
+    [data-testid="stDataFrame"], [data-testid="stTable"] {
+        width: 100% !important;
+        max-width: 100% !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
     }
     
     h1, h2, h3, h4, .poppins-font {
@@ -75,16 +99,18 @@ st.markdown("""
             repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(61, 220, 132, 0.04) 24px, rgba(61, 220, 132, 0.04) 25px);
         border: 1px solid rgba(61, 220, 132, 0.25);
         border-radius: 20px;
-        padding: 32px 36px 28px 36px;
-        margin-bottom: 24px;
+        padding: 28px 32px;
+        margin-bottom: 22px;
         position: relative;
         overflow: hidden;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .hero-title {
         font-family: 'Poppins', sans-serif;
-        font-size: 2.6rem;
+        font-size: 2.5rem;
         font-weight: 800;
         color: #EAF3E6;
         margin: 0 0 4px 0;
@@ -96,16 +122,16 @@ st.markdown("""
     }
     
     .hero-tagline {
-        font-size: 1.15rem;
+        font-size: 1.10rem;
         font-weight: 500;
         color: #8FA89A;
-        margin-bottom: 18px;
+        margin-bottom: 16px;
         letter-spacing: 0.5px;
     }
     
     .badge-container {
         display: flex;
-        gap: 10px;
+        gap: 8px;
         flex-wrap: wrap;
         margin-top: 10px;
     }
@@ -133,12 +159,14 @@ st.markdown("""
         color: #F5B83D;
     }
 
-    /* KPI Cards */
+    /* KPI Cards - Flexible Layout */
     .kpi-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
         margin-bottom: 8px;
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .kpi-card {
@@ -148,6 +176,8 @@ st.markdown("""
         padding: 18px 20px;
         transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        box-sizing: border-box;
+        height: auto;
     }
     
     .kpi-card:hover {
@@ -250,6 +280,8 @@ st.markdown("""
         padding: 22px 24px;
         margin-bottom: 18px;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .callout-box {
@@ -261,6 +293,8 @@ st.markdown("""
         border-top: 1px solid rgba(61, 220, 132, 0.15);
         border-right: 1px solid rgba(61, 220, 132, 0.15);
         border-bottom: 1px solid rgba(61, 220, 132, 0.15);
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .honesty-callout {
@@ -272,6 +306,8 @@ st.markdown("""
         border-top: 1px solid rgba(245, 184, 61, 0.15);
         border-right: 1px solid rgba(245, 184, 61, 0.15);
         border-bottom: 1px solid rgba(245, 184, 61, 0.15);
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .synthetic-banner {
@@ -286,6 +322,8 @@ st.markdown("""
         display: flex;
         align-items: center;
         gap: 8px;
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .caption-text {
@@ -299,19 +337,21 @@ st.markdown("""
     /* 4-Step Pipeline Layout */
     .pipeline-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 16px;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
         margin: 16px 0;
-        position: relative;
+        width: 100%;
+        box-sizing: border-box;
     }
     
     .pipeline-card {
         background-color: #12261A;
         border: 1px solid rgba(61, 220, 132, 0.25);
         border-radius: 16px;
-        padding: 20px;
-        position: relative;
+        padding: 18px;
+        height: auto;
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+        box-sizing: border-box;
     }
     
     .pipeline-badge {
@@ -325,29 +365,33 @@ st.markdown("""
     
     /* Phone frame for SMS/WhatsApp */
     .phone-container {
-        max-width: 440px;
-        margin: 0 auto;
+        width: min(100%, 340px) !important;
+        max-width: 340px !important;
+        margin: 0 auto !important;
         background-color: #0B1A12;
         border: 3px solid #1e3a29;
-        border-radius: 36px;
-        padding: 16px 14px 20px 14px;
+        border-radius: 32px;
+        padding: 14px 12px 18px 12px;
         box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
+        box-sizing: border-box;
     }
     
     .phone-notch {
-        width: 140px;
-        height: 18px;
+        width: 110px !important;
+        height: 16px !important;
         background-color: #1e3a29;
-        margin: 0 auto 14px auto;
-        border-radius: 0 0 14px 14px;
+        margin: 0 auto 12px auto;
+        border-radius: 0 0 12px 12px;
     }
     
     .phone-screen {
         background-color: #12261A;
-        border-radius: 22px;
-        padding: 16px 14px;
-        min-height: 380px;
+        border-radius: 20px;
+        padding: 14px 12px;
+        min-height: auto !important;
+        height: auto !important;
         border: 1px solid rgba(61, 220, 132, 0.15);
+        box-sizing: border-box;
     }
     
     .sms-bubble {
@@ -359,6 +403,7 @@ st.markdown("""
         line-height: 1.5;
         border: 1px solid rgba(61, 220, 132, 0.2);
         margin-bottom: 12px;
+        word-break: break-word;
     }
     
     .whatsapp-bubble {
@@ -370,6 +415,7 @@ st.markdown("""
         line-height: 1.55;
         border: 1px solid rgba(61, 220, 132, 0.3);
         margin-bottom: 12px;
+        word-break: break-word;
     }
     
     /* Number badges for priority inspection */
@@ -377,6 +423,7 @@ st.markdown("""
         display: inline-flex;
         align-items: center;
         justify-content: center;
+        min-width: 24px;
         width: 24px;
         height: 24px;
         border-radius: 50%;
@@ -385,6 +432,183 @@ st.markdown("""
         font-weight: 700;
         font-size: 0.75rem;
         margin-right: 8px;
+        flex-shrink: 0;
+    }
+
+    /* =========================================================================
+       RESPONSIVE MOBILE DESIGN SYSTEM (<= 768px: Mobile Phones & Tablets)
+       ========================================================================= */
+    @media (max-width: 768px) {
+        /* Page container padding & scroll prevention */
+        html, body {
+            overflow-x: hidden !important;
+            max-width: 100% !important;
+        }
+        
+        .block-container {
+            padding: 12px 12px 24px 12px !important;
+            max-width: 100% !important;
+            overflow-x: hidden !important;
+        }
+        
+        /* Streamlit columns stack vertically */
+        [data-testid="stHorizontalBlock"] {
+            flex-direction: column !important;
+            flex-wrap: wrap !important;
+            gap: 16px !important;
+            width: 100% !important;
+        }
+        
+        [data-testid="column"] {
+            width: 100% !important;
+            min-width: 100% !important;
+            max-width: 100% !important;
+            flex: 1 1 100% !important;
+            margin-bottom: 8px !important;
+        }
+        
+        /* Hero Banner mobile optimizations */
+        .hero-banner {
+            padding: 16px !important;
+            border-radius: 14px !important;
+            margin-bottom: 16px !important;
+            background: #12261A !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        }
+        
+        .hero-title {
+            font-size: 26px !important;
+            line-height: 1.2 !important;
+            margin-bottom: 6px !important;
+        }
+        
+        .hero-tagline {
+            font-size: 0.88rem !important;
+            margin-bottom: 12px !important;
+            line-height: 1.4 !important;
+        }
+        
+        .badge-container {
+            gap: 6px !important;
+        }
+        
+        .hero-badge {
+            font-size: 0.72rem !important;
+            padding: 4px 10px !important;
+        }
+        
+        /* KPI Cards on Mobile: 2 per row */
+        .kpi-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 10px !important;
+        }
+        
+        .kpi-card {
+            padding: 14px 12px !important;
+            border-radius: 12px !important;
+        }
+        
+        .kpi-label {
+            font-size: 11px !important;
+            letter-spacing: 0.2px !important;
+        }
+        
+        .kpi-icon {
+            font-size: 0.95rem !important;
+        }
+        
+        .kpi-value {
+            font-size: 22px !important;
+            line-height: 1.15 !important;
+        }
+        
+        .kpi-value-multi {
+            font-size: 11px !important;
+            line-height: 1.35 !important;
+        }
+        
+        .kpi-subtext {
+            font-size: 0.70rem !important;
+            margin-top: 2px !important;
+        }
+        
+        .kpi-caption {
+            font-size: 0.68rem !important;
+            margin-top: 4px !important;
+            padding-top: 3px !important;
+        }
+        
+        /* Tabs: horizontally scrollable bar with hidden scrollbar */
+        .stTabs [data-baseweb="tab-list"] {
+            overflow-x: auto !important;
+            overflow-y: hidden !important;
+            white-space: nowrap !important;
+            flex-wrap: nowrap !important;
+            scrollbar-width: none !important;
+            -ms-overflow-style: none !important;
+            padding-bottom: 8px !important;
+            gap: 6px !important;
+            -webkit-overflow-scrolling: touch !important;
+        }
+        
+        .stTabs [data-baseweb="tab-list"]::-webkit-scrollbar {
+            display: none !important;
+            width: 0 !important;
+            height: 0 !important;
+        }
+        
+        .stTabs [data-baseweb="tab"] {
+            font-size: 13px !important;
+            padding: 8px 12px !important;
+            white-space: nowrap !important;
+            flex-shrink: 0 !important;
+        }
+        
+        /* Pipeline Cards stack on mobile */
+        .pipeline-grid {
+            grid-template-columns: 1fr !important;
+            gap: 10px !important;
+        }
+        
+        .pipeline-card {
+            padding: 14px !important;
+            border-radius: 12px !important;
+        }
+        
+        /* Cards & Callouts compact padding */
+        .panel-card {
+            padding: 16px 14px !important;
+            border-radius: 12px !important;
+            margin-bottom: 14px !important;
+        }
+        
+        .callout-box, .honesty-callout {
+            padding: 12px 14px !important;
+            margin: 10px 0 !important;
+        }
+        
+        .synthetic-banner {
+            font-size: 0.80rem !important;
+            padding: 8px 12px !important;
+            margin-bottom: 12px !important;
+        }
+        
+        /* Plotly charts fit container */
+        .js-plotly-plot, .plotly, .plot-container {
+            max-width: 100% !important;
+            width: 100% !important;
+        }
+    }
+    
+    /* Extra Small Phones (360px to 400px) */
+    @media (max-width: 400px) {
+        .kpi-grid {
+            grid-template-columns: 1fr !important;
+        }
+        
+        .hero-title {
+            font-size: 23px !important;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
@@ -745,7 +969,7 @@ with tab2:
         
         fig = circuit_info["combined_circuit"].draw(output="mpl")
         fig.patch.set_facecolor("#12261A")
-        st.pyplot(fig)
+        st.pyplot(fig, use_container_width=True)
         st.markdown(f'<div class="caption-text">Figure 2: Complete Quantum Circuit for {qubits_select} Qubits with {reps_select} entangling layer(s). Includes ZZFeatureMap data encoding followed by parameterized RealAmplitudes variational rotation gates.</div>', unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
 
@@ -799,17 +1023,17 @@ with tab3:
                 marker_line=dict(color="rgba(255,255,255,0.1)", width=1),
                 text=[f"{v:.3f}" for v in f1_vals],
                 textposition='auto',
-                textfont=dict(family="Inter", color="#0B1A12", size=12, weight="bold")
+                textfont=dict(family="Inter", color="#0B1A12", size=11, weight="bold")
             ))
             fig_bar.update_layout(
-                title=dict(text="<b>5-Fold Cross-Validation F1-Score Comparison</b>", font=dict(family="Poppins", color="#EAF3E6")),
+                title=dict(text="<b>5-Fold Cross-Validation F1-Score Comparison</b>", font=dict(family="Poppins", color="#EAF3E6", size=13)),
                 yaxis_title="F1-Score",
-                yaxis=dict(range=[0, 1.15], gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A")),
-                xaxis=dict(tickfont=dict(color="#8FA89A")),
+                yaxis=dict(range=[0, 1.15], gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A", size=11)),
+                xaxis=dict(tickfont=dict(color="#8FA89A", size=11)),
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                height=380,
-                margin=dict(l=40, r=20, t=50, b=40)
+                height=320,
+                margin=dict(l=35, r=15, t=45, b=35)
             )
             st.plotly_chart(fig_bar, use_container_width=True)
             st.markdown('<div class="caption-text">Figure 3A: F1-Score comparison across classical baselines and quantum models with 5-fold cross-validation error bars. Classical baselines train in milliseconds with high F1.</div>', unsafe_allow_html=True)
@@ -834,16 +1058,16 @@ with tab3:
                     marker=dict(size=9, color="#5AB8FF")
                 ))
                 fig_abl.update_layout(
-                    title=dict(text="<b>Qubit Ablation Study: QSVC Scaling (2 vs 4 vs 6 Qubits)</b>", font=dict(family="Poppins", color="#EAF3E6")),
+                    title=dict(text="<b>Qubit Ablation Study: QSVC Scaling (2 vs 4 vs 6 Qubits)</b>", font=dict(family="Poppins", color="#EAF3E6", size=13)),
                     xaxis_title="Number of Qubits",
                     yaxis_title="Score (%)",
-                    xaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A")),
-                    yaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A")),
+                    xaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A", size=11)),
+                    yaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A", size=11)),
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
-                    legend=dict(font=dict(color="#EAF3E6")),
-                    height=380,
-                    margin=dict(l=40, r=20, t=50, b=40)
+                    legend=dict(orientation="h", yanchor="top", y=-0.22, xanchor="center", x=0.5, font=dict(color="#EAF3E6", size=11)),
+                    height=320,
+                    margin=dict(l=35, r=15, t=45, b=50)
                 )
                 st.plotly_chart(fig_abl, use_container_width=True)
                 st.markdown('<div class="caption-text">Figure 3B: Qubit scaling ablation for QSVC. 2-qubit dense non-linear mapping achieves 87.5% accuracy; higher qubit counts face kernel concentration in expanding Hilbert space without specialized ansatz engineering.</div>', unsafe_allow_html=True)
@@ -936,25 +1160,26 @@ with tab4:
                 colorscale=custom_colorscale,
                 zmin=0.0,
                 zmax=1.0,
-                xgap=4,
-                ygap=4,
+                xgap=3,
+                ygap=3,
                 hovertext=hover_text,
                 hoverinfo="text",
                 colorbar=dict(
-                    title=dict(text="Risk", font=dict(color="#8FA89A", size=12)),
-                    tickfont=dict(color="#8FA89A"),
+                    title=dict(text="Risk", font=dict(color="#8FA89A", size=11)),
+                    tickfont=dict(color="#8FA89A", size=10),
                     outlinecolor="rgba(0,0,0,0)",
-                    len=0.8
+                    len=0.8,
+                    thickness=12
                 )
             ))
             fig_heat.update_layout(
-                title=dict(text=f"<b>10×10 Farm Parcel Risk Distribution (Week {selected_week} — {week_data['date']})</b>", font=dict(family="Poppins", color="#EAF3E6", size=14)),
-                xaxis=dict(tickfont=dict(color="#8FA89A"), tickangle=0),
-                yaxis=dict(tickfont=dict(color="#8FA89A"), autorange="reversed"),
+                title=dict(text=f"<b>10×10 Farm Parcel Risk Distribution (Week {selected_week} — {week_data['date']})</b>", font=dict(family="Poppins", color="#EAF3E6", size=13)),
+                xaxis=dict(tickfont=dict(color="#8FA89A", size=10), tickangle=0),
+                yaxis=dict(tickfont=dict(color="#8FA89A", size=10), autorange="reversed"),
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                height=520,
-                margin=dict(l=20, r=20, t=50, b=20)
+                height=340,
+                margin=dict(l=15, r=15, t=40, b=15)
             )
             st.plotly_chart(fig_heat, use_container_width=True)
             st.markdown(f'<div class="caption-text">Figure 4: 10×10 farm plot contagion heatmap for Week {selected_week}. Color scale ranges from Mint (Low Risk, &lt;0.35) to Amber (Moderate, 0.35-0.65) to Coral (High Risk, &ge;0.65). Note diffusion radiating from initial outbreak centers.</div>', unsafe_allow_html=True)
@@ -1017,16 +1242,16 @@ with tab5:
             fig_h.add_trace(go.Bar(name="F1-Score", x=k_labels, y=f1_vals, marker_color="#5AB8FF"))
             fig_h.add_trace(go.Bar(name="False Alarm Rate (FPR)", x=k_labels, y=far_vals, marker_color="#FF5A4E"))
             fig_h.update_layout(
-                title=dict(text="<b>Early Warning Metrics across Lead Horizons (k)</b>", font=dict(family="Poppins", color="#EAF3E6")),
+                title=dict(text="<b>Early Warning Metrics across Lead Horizons (k)</b>", font=dict(family="Poppins", color="#EAF3E6", size=13)),
                 yaxis_title="Score [0.0 - 1.0]",
                 barmode="group",
-                yaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A")),
-                xaxis=dict(tickfont=dict(color="#8FA89A")),
+                yaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A", size=11)),
+                xaxis=dict(tickfont=dict(color="#8FA89A", size=11)),
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                legend=dict(font=dict(color="#EAF3E6")),
-                height=360,
-                margin=dict(l=40, r=20, t=50, b=40)
+                legend=dict(orientation="h", yanchor="top", y=-0.22, xanchor="center", x=0.5, font=dict(color="#EAF3E6", size=10)),
+                height=320,
+                margin=dict(l=35, r=15, t=45, b=50)
             )
             st.plotly_chart(fig_h, use_container_width=True)
             st.markdown('<div class="caption-text">Figure 5A: Recall, F1, and False Alarm Rate as lead horizon increases from 5 to 15 days. Measured on synthetic data. Notice the trade-off: predicting 15 days in advance yields higher entropy and lower F1 than 5 days.</div>', unsafe_allow_html=True)
@@ -1048,15 +1273,15 @@ with tab5:
                 textfont=dict(color="#0B1A12", weight="bold")
             ))
             fig_dist.update_layout(
-                title=dict(text=f"<b>Warning Lead Time Distribution (Mean: {dist.get('mean_lead_days', 11.5):.1f} Days)</b>", font=dict(family="Poppins", color="#EAF3E6")),
+                title=dict(text=f"<b>Warning Lead Time Distribution (Mean: {dist.get('mean_lead_days', 11.5):.1f} Days)</b>", font=dict(family="Poppins", color="#EAF3E6", size=13)),
                 xaxis_title="Lead Time Window (Days)",
                 yaxis_title="Number of Plots Detected",
-                xaxis=dict(tickfont=dict(color="#8FA89A")),
-                yaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A")),
+                xaxis=dict(tickfont=dict(color="#8FA89A", size=11)),
+                yaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A", size=11)),
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                height=360,
-                margin=dict(l=40, r=20, t=50, b=40)
+                height=320,
+                margin=dict(l=35, r=15, t=45, b=35)
             )
             st.plotly_chart(fig_dist, use_container_width=True)
             st.markdown(f'<div class="caption-text">Figure 5B: Histogram of advance warning lead times across all infected plots prior to visible lesion manifestation (Mean: {dist.get("mean_lead_days", 11.5):.1f} days). Measured on synthetic data.</div>', unsafe_allow_html=True)
@@ -1076,15 +1301,16 @@ with tab5:
         fig_time.add_vrect(x0=5, x1=7, fillcolor="#F5B83D", opacity=0.15, layer="below", line_width=0, annotation_text="<b>14-Day Early Warning Window</b>", annotation_position="top left", annotation_font=dict(color="#F5B83D"))
         
         fig_time.update_layout(
-            title=dict(text="<b>Multi-Spectral Temporal Dynamics for Focal Epicenter Plot</b>", font=dict(family="Poppins", color="#EAF3E6")),
+            title=dict(text="<b>Multi-Spectral Temporal Dynamics for Focal Epicenter Plot</b>", font=dict(family="Poppins", color="#EAF3E6", size=13)),
             xaxis_title="Time Horizon (Weeks)",
-            yaxis=dict(title="Spectral Reflectance / Risk", range=[0.0, 1.05], gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A")),
-            yaxis2=dict(title="Visible Stress Label (0/1)", overlaying="y", side="right", range=[-0.1, 1.1], tickfont=dict(color="#8FA89A")),
-            xaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A")),
+            yaxis=dict(title="Spectral Reflectance / Risk", range=[0.0, 1.05], gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A", size=11)),
+            yaxis2=dict(title="Visible Stress Label (0/1)", overlaying="y", side="right", range=[-0.1, 1.1], tickfont=dict(color="#8FA89A", size=11)),
+            xaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A", size=11)),
             paper_bgcolor="rgba(0,0,0,0)",
             plot_bgcolor="rgba(0,0,0,0)",
-            legend=dict(font=dict(color="#EAF3E6")),
-            height=420,
+            legend=dict(orientation="h", yanchor="top", y=-0.22, xanchor="center", x=0.5, font=dict(color="#EAF3E6", size=10)),
+            height=340,
+            margin=dict(l=35, r=35, t=45, b=50),
             hovermode="x unified"
         )
         st.plotly_chart(fig_time, use_container_width=True)
@@ -1254,13 +1480,13 @@ with tab7:
                 colorbar=dict(title=dict(text="|Diff|", font=dict(color="#8FA89A")), tickfont=dict(color="#8FA89A"))
             ))
             fig_kdiff.update_layout(
-                title=dict(text="<b>Fidelity Deviation: |Ideal - Simulated ibm_brisbane Noise|</b>", font=dict(family="Poppins", color="#EAF3E6")),
-                xaxis=dict(tickfont=dict(color="#8FA89A")),
-                yaxis=dict(tickfont=dict(color="#8FA89A")),
+                title=dict(text="<b>Fidelity Deviation: |Ideal - Simulated ibm_brisbane Noise|</b>", font=dict(family="Poppins", color="#EAF3E6", size=13)),
+                xaxis=dict(tickfont=dict(color="#8FA89A", size=10)),
+                yaxis=dict(tickfont=dict(color="#8FA89A", size=10)),
                 paper_bgcolor="rgba(0,0,0,0)",
                 plot_bgcolor="rgba(0,0,0,0)",
-                height=360,
-                margin=dict(l=20, r=20, t=50, b=20)
+                height=320,
+                margin=dict(l=15, r=15, t=45, b=15)
             )
             st.plotly_chart(fig_kdiff, use_container_width=True)
             st.markdown(f'<div class="caption-text">Figure 7A: Difference matrix between ideal statevector kernel overlaps and simulated ibm_brisbane noise model. Mean Absolute Error: {ibm.get("differences", {}).get("mae_ideal_vs_hardware", 0.0256):.4f}. Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware.</div>', unsafe_allow_html=True)
@@ -1279,17 +1505,17 @@ with tab7:
                 fig_qdist.add_trace(go.Bar(name="Generic Noisy Aer", x=b_labels, y=p_noisy, marker_color="#F5B83D"))
                 fig_qdist.add_trace(go.Bar(name="Simulated ibm_brisbane Noise", x=b_labels, y=p_hw, marker_color="#5AB8FF"))
                 fig_qdist.update_layout(
-                    title=dict(text="<b>Top Output Bitstring Probabilities (Simulated Noise)</b>", font=dict(family="Poppins", color="#EAF3E6")),
+                    title=dict(text="<b>Top Output Bitstring Probabilities (Simulated Noise)</b>", font=dict(family="Poppins", color="#EAF3E6", size=13)),
                     xaxis_title="Measured Bitstring",
                     yaxis_title="Probability",
                     barmode="group",
-                    xaxis=dict(tickfont=dict(color="#8FA89A")),
-                    yaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A")),
+                    xaxis=dict(tickfont=dict(color="#8FA89A", size=10), tickangle=-30),
+                    yaxis=dict(gridcolor="rgba(143,168,154,0.15)", tickfont=dict(color="#8FA89A", size=10)),
                     paper_bgcolor="rgba(0,0,0,0)",
                     plot_bgcolor="rgba(0,0,0,0)",
-                    legend=dict(font=dict(color="#EAF3E6")),
-                    height=360,
-                    margin=dict(l=40, r=20, t=50, b=40)
+                    legend=dict(orientation="h", yanchor="top", y=-0.22, xanchor="center", x=0.5, font=dict(color="#EAF3E6", size=10)),
+                    height=320,
+                    margin=dict(l=35, r=15, t=45, b=50)
                 )
                 st.plotly_chart(fig_qdist, use_container_width=True)
                 st.markdown('<div class="caption-text">Figure 7B: Probability comparison across the top 8 QAOA bitstrings. Simulated noise attenuates contrast slightly, but dominant ranking is preserved. Simulated with a noise model (inspired by ibm_brisbane). Not run on real hardware.</div>', unsafe_allow_html=True)
