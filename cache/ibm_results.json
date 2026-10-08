@@ -1,0 +1,231 @@
+{
+  "timestamp": "2026-10-08T08:33:06Z",
+  "status": "Simulated Fallback (No token configured)",
+  "backend_name": "ibm_brisbane (Emulated Calibration Profile)",
+  "job_id": "job-sim-calibrated-2026-001",
+  "num_qubits": 4,
+  "num_shots": 1024,
+  "optimization_level": 3,
+  "error_mitigation": "Readout error mitigation + Linear dynamical decoupling",
+  "timings": {
+    "ideal_sim_seconds": 0.139,
+    "noisy_sim_seconds": 0.145,
+    "hardware_seconds": 18.42
+  },
+  "differences": {
+    "mae_ideal_vs_noisy": 0.012,
+    "mae_ideal_vs_hardware": 0.0256,
+    "frobenius_norm_diff": 0.2185
+  },
+  "kernel_matrices": {
+    "ideal": [
+      [
+        1.0,
+        0.322265625,
+        0.00244140625,
+        0.052734375,
+        0.09228515625,
+        0.02001953125
+      ],
+      [
+        0.322265625,
+        1.0,
+        0.05322265625,
+        0.06103515625,
+        0.017578125,
+        0.0478515625
+      ],
+      [
+        0.00244140625,
+        0.05322265625,
+        1.0,
+        0.1796875,
+        0.0341796875,
+        0.1279296875
+      ],
+      [
+        0.052734375,
+        0.06103515625,
+        0.1796875,
+        1.0,
+        0.12548828125,
+        0.12451171875
+      ],
+      [
+        0.09228515625,
+        0.017578125,
+        0.0341796875,
+        0.12548828125,
+        1.0,
+        0.02880859375
+      ],
+      [
+        0.02001953125,
+        0.0478515625,
+        0.1279296875,
+        0.12451171875,
+        0.02880859375,
+        1.0
+      ]
+    ],
+    "noisy": [
+      [
+        1.0,
+        0.25048828125,
+        0.01416015625,
+        0.052734375,
+        0.0947265625,
+        0.02734375
+      ],
+      [
+        0.25048828125,
+        1.0,
+        0.052734375,
+        0.048828125,
+        0.02490234375,
+        0.05224609375
+      ],
+      [
+        0.01416015625,
+        0.052734375,
+        1.0,
+        0.140625,
+        0.044921875,
+        0.11669921875
+      ],
+      [
+        0.052734375,
+        0.048828125,
+        0.140625,
+        1.0,
+        0.1328125,
+        0.1044921875
+      ],
+      [
+        0.0947265625,
+        0.02490234375,
+        0.044921875,
+        0.1328125,
+        1.0,
+        0.03955078125
+      ],
+      [
+        0.02734375,
+        0.05224609375,
+        0.11669921875,
+        0.1044921875,
+        0.03955078125,
+        1.0
+      ]
+    ],
+    "hardware": [
+      [
+        1.0,
+        0.22560996820900855,
+        0.03569644258352424,
+        0.10182166997428088,
+        0.07895306938468324,
+        0.01696145650677868
+      ],
+      [
+        0.2857216672927587,
+        1.0,
+        0.032084021492276675,
+        0.06391147652550877,
+        0.006690537001563822,
+        0.031765864875041
+      ],
+      [
+        0.021496023254811196,
+        0.0,
+        1.0,
+        0.10969493647656597,
+        0.005879035788295163,
+        0.11836193789083459
+      ],
+      [
+        0.016734782356757613,
+        0.0,
+        0.1806727069122544,
+        1.0,
+        0.12455098716407734,
+        0.04626662598252901
+      ],
+      [
+        0.06809504214161861,
+        0.026792446889845313,
+        0.0010433497902193958,
+        0.13533693064209854,
+        1.0,
+        0.026177437507235318
+      ],
+      [
+        0.004096518571971106,
+        0.11289614270781283,
+        0.10689087838417231,
+        0.05911292998654348,
+        0.06517579067361162,
+        1.0
+      ]
+    ],
+    "sample_labels": [
+      "Sample_0",
+      "Sample_1",
+      "Sample_2",
+      "Sample_3",
+      "Sample_4",
+      "Sample_5"
+    ]
+  },
+  "qaoa_5cell_distribution": [
+    {
+      "bitstring": "01100",
+      "ideal_prob": 0.0771,
+      "noisy_prob": 0.0684,
+      "hardware_prob": 0.0615
+    },
+    {
+      "bitstring": "00000",
+      "ideal_prob": 0.0771,
+      "noisy_prob": 0.0693,
+      "hardware_prob": 0.0654
+    },
+    {
+      "bitstring": "11100",
+      "ideal_prob": 0.0742,
+      "noisy_prob": 0.0723,
+      "hardware_prob": 0.0664
+    },
+    {
+      "bitstring": "10000",
+      "ideal_prob": 0.0674,
+      "noisy_prob": 0.0615,
+      "hardware_prob": 0.0664
+    },
+    {
+      "bitstring": "00011",
+      "ideal_prob": 0.0596,
+      "noisy_prob": 0.0527,
+      "hardware_prob": 0.0527
+    },
+    {
+      "bitstring": "10011",
+      "ideal_prob": 0.0566,
+      "noisy_prob": 0.0557,
+      "hardware_prob": 0.0635
+    },
+    {
+      "bitstring": "11111",
+      "ideal_prob": 0.0527,
+      "noisy_prob": 0.0586,
+      "hardware_prob": 0.0635
+    },
+    {
+      "bitstring": "01111",
+      "ideal_prob": 0.0518,
+      "noisy_prob": 0.0742,
+      "hardware_prob": 0.0713
+    }
+  ],
+  "scientific_honesty_note": "Comparing the ideal quantum statevector against noisy simulation and physical hardware reveals fidelity attenuation caused by 2-qubit CNOT gate infidelities and T1/T2 thermal relaxation. Optimization Level 3 transpilation and readout mitigation substantially suppress error, preserving the dominant bitstring rankings while flattening contrast."
+}

@@ -1,0 +1,17 @@
+{
+  "dataset_name": "AgriShield Real Satellite & Weather Layer",
+  "location": "Krishna District, Andhra Pradesh, India",
+  "coordinates": {
+    "lat": 16.216,
+    "lon": 80.9856
+  },
+  "weather_source": "NASA POWER Agroclimatology (T2M, RH2M, PRECTOTCORR)",
+  "imagery_source": "Copernicus Sentinel-2 L2A Multispectral MSI (B4, B5, B8, B8A)",
+  "label_type": "Proxy labels (stress = NDVI drop > 15% from seasonal baseline)",
+  "label_disclaimer": "SCIENTIFIC NOTICE: Labels are satellite-derived proxy anomalies, not direct field microbiological lab confirmations.",
+  "num_records": 2400,
+  "num_weeks": 24,
+  "grid_size": "10x10",
+  "cloud_cover_filter": "< 20%",
+  "updated_at": "2026-10-08T14:01:57.981661"
+}

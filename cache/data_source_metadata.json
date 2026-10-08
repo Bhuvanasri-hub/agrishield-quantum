@@ -1,0 +1,11 @@
+{
+  "dataset_name": "AgriShield Synthetic Farm Grid (10x10)",
+  "source": "Spatio-Temporal Crop Disease Diffusion Simulation",
+  "label_type": "Synthetic data for prototype validation",
+  "description": "Simulates 100 farm plots over 24 weeks with Red-Edge pre-symptomatic stress and neighbor diffusion.",
+  "num_rows": 2400,
+  "num_weeks": 24,
+  "positive_rate": 0.2654166666666667,
+  "generated_at": "2026-10-08T12:07:15.563789",
+  "fixed_seed": 42
+}

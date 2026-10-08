@@ -1,0 +1,30 @@
+# Secrets and environment
+.env
+*.env.local
+
+# Python caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+
+# Large cache and temporary data
+cache/*.npy
+cache/*.npz
+!cache/.gitkeep
+!cache/*.json
+!cache/*.csv
+
+# Virtual environments
+venv/
+.venv/
+env/
+
+# IDE files
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db

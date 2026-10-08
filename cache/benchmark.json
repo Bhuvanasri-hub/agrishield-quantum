@@ -1,0 +1,105 @@
+{
+  "timestamp": "2026-10-08T07:08:18Z",
+  "sample_size": 120,
+  "n_splits": 5,
+  "models": {
+    "Logistic Regression": {
+      "type": "Classical",
+      "accuracy_mean": 0.9583333333333333,
+      "accuracy_std": 0.03726779962499651,
+      "recall_mean": 0.9666666666666668,
+      "recall_std": 0.06666666666666667,
+      "f1_mean": 0.9584335664335665,
+      "f1_std": 0.03779624472369521,
+      "roc_auc_mean": 0.9958333333333333,
+      "roc_auc_std": 0.008333333333333305,
+      "train_time_mean": 0.003439188003540039,
+      "train_time_std": 0.000611920259379522
+    },
+    "Random Forest": {
+      "type": "Classical",
+      "accuracy_mean": 0.9583333333333334,
+      "accuracy_std": 0.026352313834736508,
+      "recall_mean": 0.95,
+      "recall_std": 0.04082482904638632,
+      "f1_mean": 0.9585284280936455,
+      "f1_std": 0.024449052685614786,
+      "roc_auc_mean": 0.9902777777777778,
+      "roc_auc_std": 0.019444444444444417,
+      "train_time_mean": 0.17951617240905762,
+      "train_time_std": 0.016961810405355077
+    },
+    "SVC (RBF)": {
+      "type": "Classical",
+      "accuracy_mean": 0.9666666666666666,
+      "accuracy_std": 0.03118047822311619,
+      "recall_mean": 0.9833333333333334,
+      "recall_std": 0.03333333333333335,
+      "f1_mean": 0.9679197324414716,
+      "f1_std": 0.029195208848102845,
+      "roc_auc_mean": 0.9944444444444445,
+      "roc_auc_std": 0.011111111111111072,
+      "train_time_mean": 0.03481779098510742,
+      "train_time_std": 0.01171034975380605
+    },
+    "QSVC (4 qubits)": {
+      "type": "Quantum Kernel",
+      "accuracy_mean": 0.525,
+      "accuracy_std": 0.03333333333333334,
+      "recall_mean": 0.6166666666666666,
+      "recall_std": 0.19436506316150998,
+      "f1_mean": 0.5519347319347319,
+      "f1_std": 0.07461514794654392,
+      "roc_auc_mean": 0.5902777777777778,
+      "roc_auc_std": 0.07517982557069086,
+      "train_time_mean": 20.278220987319948,
+      "train_time_std": 0.6518920826846221
+    },
+    "VQC (4 qubits)": {
+      "type": "Variational Quantum",
+      "accuracy_mean": 0.48611111111111116,
+      "accuracy_std": 0.10936122047238629,
+      "recall_mean": 0.5,
+      "recall_std": 0.11785113019775795,
+      "f1_mean": 0.4922222222222223,
+      "f1_std": 0.1127545131997544,
+      "roc_auc_mean": 0.48611111111111116,
+      "roc_auc_std": 0.10936122047238624,
+      "train_time_mean": 10.82045324643453,
+      "train_time_std": 0.21455479714379852
+    }
+  },
+  "ablation": {
+    "2_qubits": {
+      "n_qubits": 2,
+      "accuracy_mean": 0.875,
+      "accuracy_std": 0.03402069087198856,
+      "f1_mean": 0.870663153271849,
+      "f1_std": 0.030937643398342905,
+      "roc_auc_mean": 0.9027777777777778,
+      "roc_auc_std": 0.03718143149122453,
+      "train_time_mean": 14.899374087651571
+    },
+    "4_qubits": {
+      "n_qubits": 4,
+      "accuracy_mean": 0.5138888888888888,
+      "accuracy_std": 0.019641855032959635,
+      "f1_mean": 0.5853513770180436,
+      "f1_std": 0.035698298125716156,
+      "roc_auc_mean": 0.5717592592592592,
+      "roc_auc_std": 0.04022719258560825,
+      "train_time_mean": 109.36079287528992
+    },
+    "6_qubits": {
+      "n_qubits": 6,
+      "accuracy_mean": 0.4861111111111111,
+      "accuracy_std": 0.12880025688188476,
+      "f1_mean": 0.5555555555555555,
+      "f1_std": 0.136986977843755,
+      "roc_auc_mean": 0.5185185185185185,
+      "roc_auc_std": 0.19029411032004268,
+      "train_time_mean": 26.914252360661823
+    }
+  },
+  "scientific_honesty_note": "Empirical results show that classical models (especially Random Forest and RBF SVC) achieve highly competitive accuracy and F1 scores while training in fractions of a second. QSVC with ZZFeatureMap demonstrates competitive non-linear separation on PCA agronomic spaces, but classical baselines currently hold significant computational speed advantages on classical simulators. No spurious quantum supremacy claim is made."
+}

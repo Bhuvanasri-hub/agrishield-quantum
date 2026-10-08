@@ -1,0 +1,337 @@
+{
+  "horizons": {
+    "5_days": {
+      "lead_time_days": 5,
+      "lead_time_weeks": 1,
+      "recall": 0.8377,
+      "false_alarm_rate": 0.0962,
+      "precision": 0.7692,
+      "f1": 0.802,
+      "total_test_samples": 690,
+      "positives_in_test": 191,
+      "confusion_matrix": {
+        "TN": 451,
+        "FP": 48,
+        "FN": 31,
+        "TP": 160
+      }
+    },
+    "10_days": {
+      "lead_time_days": 10,
+      "lead_time_weeks": 1,
+      "recall": 0.7487,
+      "false_alarm_rate": 0.0301,
+      "precision": 0.9051,
+      "f1": 0.8195,
+      "total_test_samples": 690,
+      "positives_in_test": 191,
+      "confusion_matrix": {
+        "TN": 484,
+        "FP": 15,
+        "FN": 48,
+        "TP": 143
+      }
+    },
+    "15_days": {
+      "lead_time_days": 15,
+      "lead_time_weeks": 2,
+      "recall": 0.6963,
+      "false_alarm_rate": 0.1535,
+      "precision": 0.6488,
+      "f1": 0.6717,
+      "total_test_samples": 660,
+      "positives_in_test": 191,
+      "confusion_matrix": {
+        "TN": 397,
+        "FP": 72,
+        "FN": 58,
+        "TP": 133
+      }
+    }
+  },
+  "lead_time_distribution": {
+    "mean_lead_days": 11.48,
+    "median_lead_days": 7.0,
+    "min_lead_days": 0,
+    "max_lead_days": 98,
+    "std_lead_days": 21.32,
+    "sample_size_cells": 61,
+    "lead_time_histogram": {
+      "0_to_4_days": 28,
+      "5_to_9_days": 16,
+      "10_to_14_days": 10,
+      "15_plus_days": 7
+    }
+  },
+  "focal_cell_timeline": {
+    "cell_id": "cell_02_03",
+    "description": "Epicenter cell tracking NDRE pre-symptomatic drop vs visible symptoms",
+    "series": [
+      {
+        "week_idx": 0,
+        "date": "2026-05-15",
+        "ndvi": 0.8444,
+        "ndre": 0.6334,
+        "final_risk": 0.2222,
+        "quantum_prob": 0.2054,
+        "stress_label": 0,
+        "humidity": 61.9,
+        "rainfall": 18.7
+      },
+      {
+        "week_idx": 1,
+        "date": "2026-05-22",
+        "ndvi": 0.8096,
+        "ndre": 0.608,
+        "final_risk": 0.2148,
+        "quantum_prob": 0.1877,
+        "stress_label": 0,
+        "humidity": 65.1,
+        "rainfall": 33.9
+      },
+      {
+        "week_idx": 2,
+        "date": "2026-05-29",
+        "ndvi": 0.7799,
+        "ndre": 0.5977,
+        "final_risk": 0.212,
+        "quantum_prob": 0.1892,
+        "stress_label": 0,
+        "humidity": 61.7,
+        "rainfall": 0.0
+      },
+      {
+        "week_idx": 3,
+        "date": "2026-06-05",
+        "ndvi": 0.81,
+        "ndre": 0.6106,
+        "final_risk": 0.2015,
+        "quantum_prob": 0.1857,
+        "stress_label": 0,
+        "humidity": 67.8,
+        "rainfall": 12.5
+      },
+      {
+        "week_idx": 4,
+        "date": "2026-06-12",
+        "ndvi": 0.825,
+        "ndre": 0.561,
+        "final_risk": 0.3729,
+        "quantum_prob": 0.4585,
+        "stress_label": 0,
+        "humidity": 64.2,
+        "rainfall": 30.1
+      },
+      {
+        "week_idx": 5,
+        "date": "2026-06-19",
+        "ndvi": 0.7653,
+        "ndre": 0.5339,
+        "final_risk": 0.3839,
+        "quantum_prob": 0.487,
+        "stress_label": 0,
+        "humidity": 66.6,
+        "rainfall": 4.0
+      },
+      {
+        "week_idx": 6,
+        "date": "2026-06-26",
+        "ndvi": 0.7789,
+        "ndre": 0.4824,
+        "final_risk": 0.4295,
+        "quantum_prob": 0.5419,
+        "stress_label": 0,
+        "humidity": 75.9,
+        "rainfall": 10.1
+      },
+      {
+        "week_idx": 7,
+        "date": "2026-07-03",
+        "ndvi": 0.7195,
+        "ndre": 0.5298,
+        "final_risk": 0.2888,
+        "quantum_prob": 0.2857,
+        "stress_label": 1,
+        "humidity": 78.7,
+        "rainfall": 46.1
+      },
+      {
+        "week_idx": 8,
+        "date": "2026-07-10",
+        "ndvi": 0.735,
+        "ndre": 0.4383,
+        "final_risk": 0.4132,
+        "quantum_prob": 0.5317,
+        "stress_label": 1,
+        "humidity": 79.3,
+        "rainfall": 45.8
+      },
+      {
+        "week_idx": 9,
+        "date": "2026-07-17",
+        "ndvi": 0.651,
+        "ndre": 0.3976,
+        "final_risk": 0.4812,
+        "quantum_prob": 0.6657,
+        "stress_label": 1,
+        "humidity": 80.0,
+        "rainfall": 27.1
+      },
+      {
+        "week_idx": 10,
+        "date": "2026-07-24",
+        "ndvi": 0.6068,
+        "ndre": 0.3801,
+        "final_risk": 0.5533,
+        "quantum_prob": 0.7711,
+        "stress_label": 1,
+        "humidity": 84.4,
+        "rainfall": 55.3
+      },
+      {
+        "week_idx": 11,
+        "date": "2026-07-31",
+        "ndvi": 0.5792,
+        "ndre": 0.335,
+        "final_risk": 0.5846,
+        "quantum_prob": 0.8416,
+        "stress_label": 1,
+        "humidity": 86.6,
+        "rainfall": 52.9
+      },
+      {
+        "week_idx": 12,
+        "date": "2026-08-07",
+        "ndvi": 0.5433,
+        "ndre": 0.3302,
+        "final_risk": 0.5682,
+        "quantum_prob": 0.8141,
+        "stress_label": 1,
+        "humidity": 87.9,
+        "rainfall": 43.2
+      },
+      {
+        "week_idx": 13,
+        "date": "2026-08-14",
+        "ndvi": 0.5394,
+        "ndre": 0.3542,
+        "final_risk": 0.6793,
+        "quantum_prob": 0.7198,
+        "stress_label": 1,
+        "humidity": 82.7,
+        "rainfall": 42.8
+      },
+      {
+        "week_idx": 14,
+        "date": "2026-08-21",
+        "ndvi": 0.4799,
+        "ndre": 0.3535,
+        "final_risk": 0.7486,
+        "quantum_prob": 0.6956,
+        "stress_label": 1,
+        "humidity": 76.6,
+        "rainfall": 45.3
+      },
+      {
+        "week_idx": 15,
+        "date": "2026-08-28",
+        "ndvi": 0.51,
+        "ndre": 0.3472,
+        "final_risk": 0.8034,
+        "quantum_prob": 0.7501,
+        "stress_label": 1,
+        "humidity": 80.5,
+        "rainfall": 32.7
+      },
+      {
+        "week_idx": 16,
+        "date": "2026-09-04",
+        "ndvi": 0.5096,
+        "ndre": 0.3114,
+        "final_risk": 0.9373,
+        "quantum_prob": 0.9348,
+        "stress_label": 1,
+        "humidity": 75.1,
+        "rainfall": 41.0
+      },
+      {
+        "week_idx": 17,
+        "date": "2026-09-11",
+        "ndvi": 0.5217,
+        "ndre": 0.2854,
+        "final_risk": 0.9097,
+        "quantum_prob": 0.9126,
+        "stress_label": 1,
+        "humidity": 70.9,
+        "rainfall": 13.6
+      },
+      {
+        "week_idx": 18,
+        "date": "2026-09-18",
+        "ndvi": 0.5263,
+        "ndre": 0.3267,
+        "final_risk": 0.9099,
+        "quantum_prob": 0.9482,
+        "stress_label": 1,
+        "humidity": 66.8,
+        "rainfall": 23.7
+      },
+      {
+        "week_idx": 19,
+        "date": "2026-09-25",
+        "ndvi": 0.5058,
+        "ndre": 0.3191,
+        "final_risk": 0.9014,
+        "quantum_prob": 0.9186,
+        "stress_label": 1,
+        "humidity": 64.6,
+        "rainfall": 3.3
+      },
+      {
+        "week_idx": 20,
+        "date": "2026-10-02",
+        "ndvi": 0.5524,
+        "ndre": 0.344,
+        "final_risk": 0.7985,
+        "quantum_prob": 0.8642,
+        "stress_label": 1,
+        "humidity": 60.2,
+        "rainfall": 6.0
+      },
+      {
+        "week_idx": 21,
+        "date": "2026-10-09",
+        "ndvi": 0.5238,
+        "ndre": 0.2989,
+        "final_risk": 0.8603,
+        "quantum_prob": 0.8523,
+        "stress_label": 1,
+        "humidity": 61.3,
+        "rainfall": 2.6
+      },
+      {
+        "week_idx": 22,
+        "date": "2026-10-16",
+        "ndvi": 0.5439,
+        "ndre": 0.2883,
+        "final_risk": 0.8499,
+        "quantum_prob": 0.8642,
+        "stress_label": 1,
+        "humidity": 70.8,
+        "rainfall": 9.4
+      },
+      {
+        "week_idx": 23,
+        "date": "2026-10-23",
+        "ndvi": 0.5249,
+        "ndre": 0.2806,
+        "final_risk": 0.8687,
+        "quantum_prob": 0.848,
+        "stress_label": 1,
+        "humidity": 66.2,
+        "rainfall": 8.7
+      }
+    ]
+  },
+  "scientific_honesty_note": "The quantum early warning model achieves an average warning horizon of 11.48 days prior to visible field symptoms, driven by the early collapse of the Red-Edge (NDRE) reflectance band. As lead horizon extends to 15 days, recall and precision naturally decrease, reflecting increased atmospheric and biological entropy."
+}
